@@ -6,6 +6,6 @@ function log(message){
 }
 
 //module.exports.log = log; 
-// Don't necessartily need an object, just need the function
+// Don't necessarily need an object, just need the function
 module.exports = log
 //module.exports.endPoint = url;
