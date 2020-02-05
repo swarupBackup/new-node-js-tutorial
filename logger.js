@@ -1,11 +1,13 @@
 url = 'http://mylogger.io/log';
 
-function log(message){
-    //send an HTTP request
-    console.log(message)
+const EventEmitter = require('events')
+
+class Logger extends EventEmitter{
+    log(message){
+        //send an HTTP request
+        console.log(message)
+        this.emit('logging', {id: 1, url: 'http://'})
+    }
 }
 
-//module.exports.log = log; 
-// Don't necessarily need an object, just need the function
-module.exports = log
-//module.exports.endPoint = url;
+module.exports = Logger
