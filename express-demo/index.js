@@ -5,6 +5,14 @@ const logger = require('./logger')
 const auth = require('./authenticate')
 const helmet = require('helmet')
 const morgan = require('morgan')
+const config = require('config')
+
+
+// Configuration
+console.log('Application name: ' + config.get('name'))
+console.log('Mail server: ' + config.get('mail.host'))
+console.log('Mail server password: ' + config.get('mail.password'))
+
 
 
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
