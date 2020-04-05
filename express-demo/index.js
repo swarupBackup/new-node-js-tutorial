@@ -7,23 +7,23 @@ const helmet = require('helmet')
 const morgan = require('morgan')
 const config = require('config')
 
+app.set('view engine', 'pug')
+
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static('public'))
+app.use(logger) 
+app.use(auth)
+app.use(helmet())
 
 // Configuration
 console.log('Application name: ' + config.get('name'))
 console.log('Mail server: ' + config.get('mail.host'))
 console.log('Mail server password: ' + config.get('mail.password'))
-
-
-
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
 console.log(`app: ${app.get('env')}`)
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static('public'))
-app.use(logger)
-app.use(auth)
-app.use(helmet())
 
 if(app.get('env') === 'development'){
     app.use(morgan('tiny'))
@@ -37,7 +37,7 @@ const courses = [
 ]
 
 app.get('/', (req, res) => {
-    res.send('Hello World!!!')
+    res.render('index',{title: 'My Express App', message: "Bow"})
 })
 
 
