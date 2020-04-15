@@ -4,6 +4,7 @@ getUser(1)
     .then(user=>getUserRepositories(user.gitHubUsername))
     .then(repo=>getCommit(repo[0]))
     .then(commit=>console.log(commit))
+    .catch(err=>console.log('Error', err.message))
     
 console.log('After')
 
