@@ -7,6 +7,20 @@
 */
 
 
+async function displayCommits(){
+    try{
+        const user = await getUser(1)
+        const repo = await getUserRepositories(user)
+        const commit = await getCommit(repo)
+        console.log(commit)
+    }
+    catch(err){
+        console.log('Error: ', err)
+    } 
+}
+
+displayCommits()
+
 function getUser(id){
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{
@@ -19,7 +33,7 @@ function getUserRepositories(username){
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{
             console.log('Calling GitHub API...')
-            resolve(['repo1', 'repo2', 'repo3'])
+            reject(new Error('Could not get any repositories'))
         }, 2000)
     })
 }
@@ -32,19 +46,3 @@ function getCommit(repo){
     })
 }
 
-const p1 = new Promise(resolve => {
-    setTimeout(()=>{
-        console.log('Async operation 1...')
-        resolve(1)
-    }, 2000)
-})
-
-const p2 = new Promise(resolve => {
-    setTimeout(()=>{
-        console.log('Async operation 2...')
-        resolve(2)
-    }, 2000)
-})
-
-Promise.all([p1,p2])
-    .then(result=>console.log(result))
