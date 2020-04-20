@@ -1,48 +1,41 @@
-//console.log('Before')
-
-/*getUser(1)
-    .then(user=>getUserRepositories(user.gitHubUsername))
-    .then(repo=>getCommit(repo))
-    .then(commit=>console.log(commit))
-*/
-
-
-async function displayCommits(){
-    try{
-        const user = await getUser(1)
-        const repo = await getUserRepositories(user)
-        const commit = await getCommit(repo)
-        console.log(commit)
-    }
-    catch(err){
-        console.log('Error: ', err)
-    } 
+async function display() {
+  try {
+        const customer = await getCustomer(1);
+        if (customer.isGold) {
+            console.log('Customer:', customer);
+            const movies = await getMovies(['movie1, movie2']);
+            console.log(`Movies: ${movies}`);
+            const email = await sendEmail(customer.email, movies);
+            console.log(email);
+        }
+  }
+  catch(err){
+      console.log('Error: ', err)
+  }
 }
 
-displayCommits()
+display()
 
-function getUser(id){
-    return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            resolve({id: id, gitHubUsername: 'indraasura'})
-        }, 2000)
-    }) 
+function getCustomer(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ id: id, name: "Mosh Hamedani", isGold: true, email: "email" });
+    }, 2000);
+  });
 }
 
-function getUserRepositories(username){
-    return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            console.log('Calling GitHub API...')
-            reject(new Error('Could not get any repositories'))
-        }, 2000)
-    })
+function getMovies(movies) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(movies);
+    }, 2000);
+  });
 }
 
-function getCommit(repo){
-    return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            resolve(['commit1'])
-        }, 2000)
-    })
+function sendEmail(email, movies) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Email sent...");
+    }, 2000);
+  });
 }
-
