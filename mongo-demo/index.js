@@ -40,7 +40,7 @@ async function getCourses(){
     .find({ author: 'Mosh', isPublished: true })
     .limit(10)
     .sort({ name: 1 })
-    .select({ name: 1, tags: 1 })
+    .count()
   console.log(courses)
  } catch (err) {
    console.log(err)
