@@ -48,16 +48,21 @@ async function getCourses(){
 }
 
 async function updateCourse(id){
-  const course = await Course.findById(id);
-  if(!course) return
-  course.set({
-    isPublished: true,
-    author: 'Another Author'
-  })
-  const result = await course.save()
+  const course = await Course.findByIdAndUpdate(id, {
+    $set: {
+      author: 'Jason',
+      isPublished: true
+    }
+  }, { new: true })
+  console.log(course)
+}
+
+async function removeCourse(id){
+  const result = await Course.deleteOne({ _id : id })
   console.log(result)
 }
 
 
 
-updateCourse('5e9d3af34031501352d3cf96')
+
+removeCourse('5e9d3af34031501352d3cf96')
