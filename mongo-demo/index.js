@@ -40,11 +40,24 @@ async function getCourses(){
     .find({ author: 'Mosh', isPublished: true })
     .limit(10)
     .sort({ name: 1 })
-    .count()
+    .select({ name: 1, author: 1 })
   console.log(courses)
  } catch (err) {
    console.log(err)
  }
 }
 
-getCourses()
+async function updateCourse(id){
+  const course = await Course.findById(id);
+  if(!course) return
+  course.set({
+    isPublished: true,
+    author: 'Another Author'
+  })
+  const result = await course.save()
+  console.log(result)
+}
+
+
+
+updateCourse('5e9d3af34031501352d3cf96')
