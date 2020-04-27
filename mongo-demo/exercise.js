@@ -38,7 +38,7 @@ async function getCourses(){
         const courses = await Course
             .find({ isPublished: true })
             .sort({ name: 1 })
-            .select({ name: 1, author: 1 })
+            .select({ name: 1, author: 1, isPublished: 1 })
         console.log(courses)
     } catch(err) {
         console.log('Error: ', err)
