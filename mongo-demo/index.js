@@ -6,14 +6,36 @@ mongoose
   .catch((err) => console.log("Could not connect to MongoDB... ", err));
 
 const courseSchema = new mongoose.Schema({
-  name: String,
-  author: String,
-  tags: [String],
+  name: { 
+    type: String, 
+    required: true,
+    minlength: 5,
+    maxlength: 255
+  },
+  author: { type: String, required: true },
+  category: {
+    type: String,
+    required: true,
+    enum: ['web', 'mobile', 'network']
+  },
+  tags: {
+    type: Array,
+    validate: {
+      validator: function(v){
+        return v && v.length > 0
+      },
+      message: ' A course should have at least one tag '
+    }
+  },
   date: {
     type: Date,
     default: Date.now(),
   },
-  isPublished: Boolean,
+  isPublished: { type: Boolean, required: true },
+  price: {
+    type: Number,
+    required: function() { return this.isPublished }
+  }
 });
 
 const Course = mongoose.model("Course", courseSchema);
@@ -24,13 +46,15 @@ async function createCourse() {
     const course = new Course({
       name: "Angular Course",
       author: "Mosh",
-      tags: ["angular", "frontend"],
+      category: "web",
+      //tags: ["angular", "frontend"],
       isPublished: true,
+      price: 35
     });
     const result = await course.save();
     console.log(result);
   } catch (err) {
-    console.log("Error: ", err);
+    console.log(err.message );
   }
 }
 
@@ -64,5 +88,4 @@ async function removeCourse(id){
 
 
 
-
-removeCourse('5e9d3af34031501352d3cf96')
+createCourse()
