@@ -39,11 +39,11 @@ mongoose.connect('mongodb://localhost/playground')
     async function listCourses(){
         const courses = await Course
             .find()
-            .select('name')
+            .select('name author')
         console.log(courses)
     }
 
     //createAuthor('Swarup', 'My bio', 'My website')
-    createCourse('Node Course','5eb9408d0a99c67524868673')
+    //createCourse('Node Course','5eb9408d0a99c67524868673')
 
-    //listCourses()
+    listCourses()
