@@ -15,4 +15,10 @@ app.get('/api/courses', (req, res) => {
     res.send(courses)
 })
 
+app.get('/api/courses/:id', (req, res) => {
+    const course = courses.find(course => course.id === parseInt(req.params.id))
+    if (!course) return res.status(404).send('Requested course not found!')
+    res.send(course)
+})
+
 app.listen(3000, ()=>{ console.log('Connected to server on port 3000...') })
