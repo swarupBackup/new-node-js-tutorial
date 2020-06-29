@@ -41,4 +41,26 @@ app.post('/api/courses', (req, res) => {
     res.send(courses)
 })
 
+// Put route
+app.put('/api/courses/:id', (req, res) => {
+    const course = courses.find(course => course.id === parseInt(req.params.id))
+    if (!course) return res.status(404).send('Requested course not found!')
+    const schema = {
+        name: Joi.string().min(3).required()
+    }
+    const result = Joi.validate(req.body, schema)
+    if (result.error) return res.status(400).send(request.error.details[0].message)
+    course.name = req.body.name
+    res.send(workshops)
+})
+
+// Delete route
+app.delete('/api/courses/:id', (req, res) => {
+    const course = courses.find(course => course.id === parseInt(req.params.id))
+    if (!course) return res.status(404).send('Requested course not found!')
+    const index = courses.indexOf(course)
+    courses.splice(index, 1)
+    res.send(courses)
+})
+
 app.listen(3000, ()=>{ console.log('Connected to server on port 3000...') })
