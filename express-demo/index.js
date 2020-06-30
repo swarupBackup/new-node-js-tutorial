@@ -1,13 +1,22 @@
 const express = require('express') // returns function
 const app = express() // function returns app
 const Joi = require('joi')
+const logger = require('./middleware/logger')
+const config = require('config')
+
 app.use(express.json())
+app.use(logger)
+
+console.log(`Application name: ${config.get('name')}`)
+
 
 const courses = [
     {id: 1, name: 'course1'},
     {id: 2, name: 'course2'},
     {id: 3, name: 'course3'},
 ]
+
+
 
 // Get routes
 
